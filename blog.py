@@ -22,23 +22,27 @@ import glob,re,os,time,operator
 BlogDir = os.path.dirname(__file__) 
 mainFileName = os.path.join(BlogDir,"main.html") 
 MainPageTemplate = '''<h1 class="title">AO1's Blog</h1><hr>'''
-
+summaryLength = 100
+SummaryTemplate = """<div>
+<a href="{path}"><h2>{title}</h2></a>
+{content} ...
+<br><br>modified: {modificationDateTime}
+<hr>
+</div>"""
+titleBeginMarker = """<h1 class="title">"""
+titleEndMarker = """</h1>"""
+contentBeginMarker = """<h1 class="title">"""
+contentEndMarker = """<div id="postamble" class="status">"""
 
 class Page(object):
     contentInLines = ""
     path = ""
-    summaryLength = 100
     def __init__(self,path):
         #TODO : use with to open and close file
         self.contentInLines = open(path,'r').readlines()
         self.path = path
     def summary(self,length = summaryLength):
-        return """<div>
-<a href="{path}"><h2>{title}</h2></a>
-{content} ...
-<br><br>modified: {modificationDateTime}
-<hr>
-</div>""".format(title = self.getTitle() ,
+        return SummaryTemplate.format(title = self.getTitle() ,
                  content = self.getContent()[0:length],
                  path = self.path, 
                  modificationDateTime = self.getModificationDateTime() )
@@ -46,8 +50,6 @@ class Page(object):
     #WARNING: this method needs to be overriden.
     def getTitle(self):
         for line in self.contentInLines:
-            titleBeginMarker = """<h1 class="title">"""
-            titleEndMarker = """</h1>"""
             if  titleBeginMarker in line:
                 line = line.replace(titleBeginMarker,"")
                 line = line.replace(titleEndMarker,"")
@@ -61,8 +63,6 @@ class Page(object):
         isContent = False
         content = ""
         for line in self.contentInLines:
-            contentBeginMarker = """<h1 class="title">"""
-            contentEndMarker = """<div id="postamble" class="status">"""
             if isContent:
                 content += line
             if contentBeginMarker in line:

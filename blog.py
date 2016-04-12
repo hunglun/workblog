@@ -19,8 +19,10 @@ Html files are generated from org files in emacs. convert.el can convert org fil
 import glob,re,os,time,operator
 
 # CONSTANT
-BlogDir = os.path.dirname(__file__) 
-mainFileName = os.path.join(BlogDir,"main.html") 
+BlogDir = os.path.dirname(os.path.abspath(__file__))
+mainFileName = os.path.join(BlogDir,"main.html")
+print "Blog Directory: " + BlogDir
+print "Main File Path:" + mainFileName
 MainPageTemplate = '''<h1 class="title">AO1's Blog</h1><hr>'''
 summaryLength = 100
 SummaryTemplate = """<div>
@@ -137,4 +139,4 @@ if __name__ == "__main__":
 
     # update main.html
     updateMainPage(mainFileName, mainContent)
-    print "Main page generation completes"
+    print "\n" + mainFileName + " is generated."

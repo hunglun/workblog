@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Formal Method with TLA</title>
+<!-- 2016-05-11 Wed 15:24 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Alan O Hung Lun" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Formal Method with TLA</h1>
+<p>
+Amazon's successful experience with using formal method on their distributed system inspires me to take a second look at its practicality. 
+Amazon uses TLA+ developed by Microsoft Research to specify their system and perform modal checking on the specification. In the process, the Amazon engineers uncovered several critical bugs, which would have otherwise remained hidden from other testing methods.
+</p>
+
+<p>
+I am in the process of studying TLA+. 
+</p>
+
+<p>
+Here is a toy example of how formal method would work.
+</p>
+
+<p>
+Given a formal specification of a hour clock, such as this
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C">---------------------- MODULE HourClock ----------------------
+EXTENDS Naturals
+VARIABLE hr
+HCini  ==  hr \in (1 .. 12)
+HCnxt  ==  hr' = IF hr # 12 THEN hr + 1 ELSE 1
+HC  ==  HCini /\ [][HCnxt]_hr
+==============================================================
+</pre>
+</div>
+
+<p>
+We want to know if the variable hr is always within the set {1,2,3,..12}, no matter how long the clock runs.
+Given the specification of hour clock, we run the model checker and find that there is no error. In this case,
+hr is always in {1,2,3..12} is called Invariant.
+</p>
+
+<p>
+If we set the Invariant to be
+</p>
+<pre class="example">
+hr is always in {1,2,3}
+</pre>
+<p>
+then the model checker will throw up 9 errors:
+Property hr &isin; {1,2,3} is violated by the initial state:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-C">hr = 4
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 5
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 6
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 7
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 8
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 9
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 10
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 11
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 12
+</pre>
+</div>
+
+
+<p>
+This toy example illustrates the principle of formal specification and model checking. When the same principle is applied to more complicated system, we have a tool to check its safety critical properties automatically. 
+</p>
+
+<p>
+TLA+ webpage: <a href="http://research.microsoft.com/en-us/um/people/lamport/tla/tla.html">http://research.microsoft.com/en-us/um/people/lamport/tla/tla.html</a>
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Alan O Hung Lun</p>
+<p class="date">Date: 2016-05-11 Wed 15:11</p>
+</div>
+</body>
+</html>

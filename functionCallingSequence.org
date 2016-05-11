@@ -1,0 +1,23 @@
+#+TITLE: etags and cscope
+#+AUTHOR: Alan O Hung Lun
+#+OPTIONS: html-postamble:t ^:nil creator:nil toc:nil email:ao1@ra.rockwell.com
+* Emacs Tags
+emacs tags enable quick lookup of function's definition, and no more.
+
+Create tag file
+: ctags -e -R  *.C *.H *.CPP *.HPP
+
+Find definition of a string
+: M + .
+
+* cscope
+cscope is more powerful than etags. 
+
+Create file listing
+: xfind c:\snapshot\ice1_main_dev\LNX -name *.hpp  -print >> cscope.files
+
+Create cscope database
+: cscope -b -q -k
+
+Reference:
+http://cscope.sourceforge.net/large_projects.html

@@ -1,0 +1,66 @@
+#+TITLE: Formal Method with TLA
+#+AUTHOR: Alan O Hung Lun
+#+OPTIONS: html-postamble:t ^:nil creator:nil toc:nil email:ao1@ra.rockwell.com
+
+
+Amazon's successful experience with using formal method on their distributed system inspires me to take a second look at its practicality. 
+Amazon uses TLA+ developed by Microsoft Research to specify their system and perform modal checking on the specification. In the process, the Amazon engineers uncovered several critical bugs, which would have otherwise remained hidden from other testing methods.
+
+I am in the process of studying TLA+. 
+
+Here is a toy example of how formal method would work.
+
+Given a formal specification of a hour clock, such as this
+
+#+BEGIN_SRC C
+---------------------- MODULE HourClock ----------------------
+EXTENDS Naturals
+VARIABLE hr
+HCini  ==  hr \in (1 .. 12)
+HCnxt  ==  hr' = IF hr # 12 THEN hr + 1 ELSE 1
+HC  ==  HCini /\ [][HCnxt]_hr
+==============================================================
+#+END_SRC
+
+We want to know if the variable hr is always within the set {1,2,3,..12}, no matter how long the clock runs.
+Given the specification of hour clock, we run the model checker and find that there is no error. In this case,
+hr is always in {1,2,3..12} is called Invariant.
+
+If we set the Invariant to be
+: hr is always in {1,2,3}
+then the model checker will throw up 9 errors:
+Property hr \in {1,2,3} is violated by the initial state:
+
+#+BEGIN_SRC C
+hr = 4
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 5
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 6
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 7
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 8
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 9
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 10
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 11
+
+Property hr \in {1,2,3} is violated by the initial state:
+hr = 12
+
+#+END_SRC
+
+
+This toy example illustrates the principle of formal specification and model checking. When the same principle is applied to more complicated system, we have a tool to check its safety critical properties automatically. 
+
+TLA+ webpage: http://research.microsoft.com/en-us/um/people/lamport/tla/tla.html

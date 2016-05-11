@@ -1,0 +1,10 @@
+#+TITLE: Chrome Extension: Create slideshow out of HTML page
+#+AUTHOR: Alan O Hung Lun
+#+OPTIONS: html-postamble:t ^:nil creator:nil toc:nil email:ao1@ra.rockwell.com
+
+I want to present material using my blog entries. It is best to do a powerpoint slide. Is it possible to turn a webpage to a powerpoint slide, without changing the internal of the html pages at all? 
+
+My first attempt is to hide all paragraphs (marked by <p> html tag). Then every mouse click will reveal one more paragraph. This is made possible with a chrome extension I made today,
+: //apsgsgpfile001/Shared002/Logix/Logix-Engine/Discussion/AlanO/gitRepo/htmlSlideshow
+
+To try it, follow "Load the extension" section on [[https://developer.chrome.com/extensions/getstarted#unpacked][this page]].
